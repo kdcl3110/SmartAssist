@@ -3,7 +3,10 @@
 namespace App\Http\Controllers;
 
 // use Barryvdh\DomPDF\PDF as DomPDFPDF;
+
+use DateTime;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Date;
 use PDF;
 use Illuminate\Support\Facades\Storage;
 
@@ -36,8 +39,16 @@ class PDFController extends Controller
         ];
         $pdf = PDF::loadView('PDFTemplate', $data);
 
-        Storage::put('public/pdf/invoice.pdf', $pdf->output());
-        return response(['fiche' => storage_path('app/public/pdf/invoice.pdf')], 200);
+        
+        $path = public_path('pdf/');
+        $date = new DateTime();
+        $fileName =  $date->getTimestamp() . '.' . 'pdf';
+        $pdf->save($path . '/' . $fileName);
+        // return $pdf->download($fileName);
+
+        $path_pdf = 'pdf/' . $date->getTimestamp() . '.pdf';
+        return asset($path_pdf);
+        // return response(['fiche' => storage_path('app/public/pdf/invoice.pdf')], 200);
     }
 
     /**
