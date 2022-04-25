@@ -10,23 +10,31 @@ use Illuminate\Support\Facades\Storage;
 class PDFController extends Controller
 {
     /**
-     * Display a listing of the resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
+	 * Generation of the pre-registration form
+	 *
+	 * this function will retrieve the user's data and generate the pre-registration form
+     * @urlParam path="app/public/pdf/invoice.pdf",
+	 * @bodyParam  user_id int required The id of the user. Example: 9
+     * @bodyParam  data array The data of the student. Example $data = ['nom' => 'Welcome to Tutsmake.com','prenom' => 'denio','date' => '19/O3/22',];
+     *  
+     * @response  {
+     *  "id": 4,
+     *  "file": "https://safe-dawn-79771.herokuapp.com/app/public/pdf/invoice.pdf",
+     * }
+     * @response  404 {
+     *  "message": "No query results for model [\App\User]"
+     * }
+	 */
+
     public function index()
     {
-        //
+        
         $data = [
             'nom' => 'Welcome to Tutsmake.com',
             'prenom' => 'denio',
             'date' => '19/O3/22',
         ];
         $pdf = PDF::loadView('PDFTemplate', $data);
-        // ->setPaper('a4', 'landscape')
-        // ->setWarnings(false)
-        // ->save(public_path("file.pdf"))
-        // ->stream();
 
         Storage::put('public/pdf/invoice.pdf', $pdf->output());
         return response(['fiche' => storage_path('app/public/pdf/invoice.pdf')], 200);
