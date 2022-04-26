@@ -21,7 +21,7 @@ use Illuminate\Support\Facades\Route;
 Route::post('/register', [AuthController::class, 'register']);
 Route::post('/logout', [AuthController::class, 'logout']);
 Route::post('/login', [AuthController::class, 'login']);
-Route::get('/printPDF', [PDFController::class, 'index']);
+Route::get('/printPDF', [PDFController::class, 'store']);
 
 
 
