@@ -61,7 +61,7 @@ class PDFController extends Controller
         // return $pdf->download($fileName);
 
         $path_pdf = 'pdf/' . $date->getTimestamp() . '.pdf';
-        return asset($path_pdf);
+        return response(['fiche' =>asset($path_pdf)]);
         // return response(['fiche' => storage_path('app/public/pdf/invoice.pdf')], 200);
     }
 
