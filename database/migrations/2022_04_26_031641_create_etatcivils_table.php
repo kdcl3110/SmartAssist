@@ -27,7 +27,7 @@ class CreateEtatcivilsTable extends Migration
             $table->string('situation_pro');
             $table->string('premiere_langue');
             $table->string('email');
-            $table->integer('telephone');
+            $table->string('telephone');
             $table->string('num_cni');
             $table->string('adresse');
             $table->date('date_rdv');
