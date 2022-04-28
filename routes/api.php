@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\PDFController;
+use App\Http\Controllers\EtatcivilController;
 use App\Http\Controllers\ProductController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
@@ -21,7 +22,9 @@ use Illuminate\Support\Facades\Route;
 Route::post('/register', [AuthController::class, 'register']);
 Route::post('/logout', [AuthController::class, 'logout']);
 Route::post('/login', [AuthController::class, 'login']);
-Route::get('/printPDF', [PDFController::class, 'store']);
+Route::get('/printPDF/{id}', [PDFController::class, 'store']);
+Route::view('/etatcivil', 'etatcivil');
+Route::post('/etatcivil', [EtatcivilController::class, 'addData']);
 
 
 

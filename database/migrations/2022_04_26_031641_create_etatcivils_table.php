@@ -16,10 +16,21 @@ class CreateEtatcivilsTable extends Migration
         Schema::create('etatcivils', function (Blueprint $table) {
             $table->id();
             $table->foreignId('user_id')->constrained();
-            $table->string('nom', 100);
-            $table->text('description')->nullable();
-            $table->float('prix');
-            $table->boolean('actif');
+            $table->string('code');
+            $table->string('nom');
+            $table->string('prenom' );
+            $table->date('date_naiss');
+            $table->string('datePrécise');
+            $table->string('lieu_naiss');
+            $table->string('sexe');
+            $table->string('statut_matrimonial');
+            $table->string('situation_pro');
+            $table->string('premiere_langue');
+            $table->string('email');
+            $table->integer('telephone');
+            $table->string('num_cni');
+            $table->string('adresse');
+            $table->date('date_rdv');
             $table->timestamps();
         });
     }
