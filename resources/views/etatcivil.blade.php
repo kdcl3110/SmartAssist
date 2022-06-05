@@ -1,21 +1,24 @@
-<h1>etatcivils</h1>
-<form action="etatcivil" method="post">
+<h1>datastudents</h1>
+<form action="datastudents" method="post">
  @crsf</br>
-    <input type="text" name="user_id"> </input> </br></br>
-    <input type="text" name="code"> </input> </br></br>
-    <input type="text" name="nom"> </input> </br></br>
-    <input type="text" name="prenom"> </input> </br></br>
-    <input type="text" name="date_naiss"> </input> </br></br>
-    <input type="text" name="datePrécise"> </input> </br></br>
-    <input type="text" name="lieu_naiss"> </input> </br></br>
-    <input type="text" name="sexe"> </input> </br></br>
-    <input type="text" name="statut_matrimonial"> </input> </br></br>
-    <input type="text" name="situation_pro"> </input> </br></br>
-    <input type="text" name="premiere_langue"> </input> </br></br>
-    <input type="text" name="email"> </input> </br></br>
-    <input type="text" name="telephone"> </input> </br></br>
-    <input type="text" name="num_cni"> </input> </br></br>
-    <input type="text" name="adresse"> </input> </br></br>
-    <input type="text" name="date_rdv"> </input> </br></br>
+    <input type="text" placeholder="user_id" name="user_id"> </input> </br></br>
+    <input type="text" placeholder="filiation" name="filiation_id"> </input> </br></br>
+    <input type="text" placeholder="etat" name="etatcivil_id"> </input> </br></br>
     <button type="submit"> ajouter</button>
 </form>
+<!-- <h1>filiation</h1>
+<form action="api/filiation" method="post">
+ @crsf</br>
+    <input type="text" placeholder="user_id" name="user_id"> </input> </br></br>
+    <input type="text" placeholder="nationalite" name="nationalite"> </input> </br></br>
+    <input type="text" placeholder="region" name="region"> </input> </br></br>
+    <input type="text" placeholder="departement" name="departement"> </input> </br></br>
+    <input type="text" placeholder="nom_pere" name="nom_pere"> </input> </br></br>
+    <input type="text" placeholder="profe_pere" name="profe_pere"> </input> </br></br>
+    <input type="text" placeholder="nom_mere" name="nom_mere"> </input> </br></br>
+    <input type="text" placeholder="profe_mere" name="profe_mere"> </input> </br></br>
+    <input type="text" placeholder="nom_contact" name="nom_contact"> </input> </br></br>
+    <input type="text" placeholder="telephone_contact" name="telephone_contact"> </input> </br></br>
+    <input type="text" placeholder="ville_contact" name="ville_contact"> </input> </br></br>
+    <button type="submit"> ajouter</button>
+</form> -->

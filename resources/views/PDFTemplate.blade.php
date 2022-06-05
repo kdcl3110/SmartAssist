@@ -135,7 +135,7 @@
                     <center>
                         <p class="header-title p">FICHE DE PREINSCRIPTION ET QUITUS DE L'UNIVERSITE DE YAOUNDE I</p>
                         <p class="header-title p">ANNEE ACADEMIQUE 2021/2022</p>
-                        <p style="font-weight: bold; font-size: 20px; margin-top: 5px; margin-bottom: 5px">Code : </p>
+                        <p style="font-weight: bold; font-size: 20px; margin-top: 5px; margin-bottom: 5px">Code :  </p>
                         <p class="header-title p">
                             Ce code unique permet de <u>voir sa fiche</u>, completer ou corriger ses informations de
                         </p>
@@ -162,20 +162,64 @@
                         Etat-Civil
                     </p>
                     <div class="content">
-                        <p>Code préinscription :</p>
-                        <p>Nom(s) et Prénom(s) : {{$nom}} {{$prenom}}</p>
-                        <p>Date de Naissance : {{$date_naiss}}</p>
-                        <p>Date précise? : {{$datePrécise}}</p>
-                        <p>Lieu de Naissance: {{$lieu_naiss}}</p>
-                        <p>Sexe : {{$sexe}}</p>
-                        <p>Statut matrimonial : {{$statut_matrimonial}}</p>
-                        <p>Situation professionnelle : {{$code}}</p>
-                        <p>Première langue : {{$premiere_langue}}</p>
-                        <p>Email : {{$email}}</p>
-                        <p>Téléphone : {{$telephone}}</p>
-                        <p>N° CNI : {{$num_cni}}</p>
-                        <p>Adresse : {{$adresse}}</p>
-                        <p> <u>Date de rendez-vous : {{$date_rdv}}</u> </p>
+                        <table>
+                            <tr>
+                                <td style="width: 120px;"> Code préinscription :</td>
+                                <td > vgdfvfhjd</td> </td>
+                            </tr>
+                            <tr>
+                                <td style="width: 120px;"> Nom(s) et Prénom(s) : </td>
+                                <td> {{$nom}} {{$prenom}}</td>      
+                            </tr>
+                            <tr>
+                                <td style="width: 120px;">Date de Naissance : </td>
+                                <td> {{$date_naiss}}</td>      
+                            </tr>
+                            <tr>
+                                <td style="width: 120px;">Date précise? : </td>
+                                <td> {{$datePrécise}}</td>      
+                            </tr>
+                            <tr>
+                                <td style="width: 120px;">Lieu de Naissance : </td>
+                                <td>{{$lieu_naiss}} </td>      
+                            </tr>
+                            <tr>
+                                <td style="width: 120px;">Sexe : </td>
+                                <td>{{$sexe}} </td>      
+                            </tr>
+                            <tr>
+                                <td style="width: 120px;">Statut matrimonial : </td>
+                                <td>{{$statut_matrimonial}} </td>      
+                            </tr>
+                            <tr>
+                                <td style="width: 120px;">Situation professionnelle : </td>
+                                <td>{{$situation_pro}} </td>      
+                            </tr>
+                            <tr>
+                                <td style="width: 120px;">Première langue : </td>
+                                <td>{{$premiere_langue}} </td>      
+                            </tr>
+                            <tr>
+                                <td style="width: 120px;">Email : </td>
+                                <td>{{$email}} </td>      
+                            </tr>
+                            <tr>
+                                <td style="width: 120px;">Téléphone : </td>
+                                <td>{{$telephone}} </td>      
+                            </tr>
+                            <tr>
+                                <td style="width: 120px;">N° CNI : </td>
+                                <td>{{$num_cni}} </td>      
+                            </tr>
+                            <tr>
+                                <td style="width: 120px;">Adresse : </td>
+                                <td>{{$adresse}} </td>      
+                            </tr>
+                            <tr>
+                                <td style="width: 120px;">Date de rendez-vous : </td>
+                                <td>{{$date_rdv}} </td>      
+                            </tr>
+                        </table>
                     </div>
                 </div>
                 <div class="mt-10">
