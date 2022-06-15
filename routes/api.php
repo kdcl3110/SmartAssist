@@ -6,6 +6,7 @@ use App\Http\Controllers\EtatcivilController;
 use App\Http\Controllers\FiliationController;
 use App\Http\Controllers\DataStudentsController;
 use App\Http\Controllers\ProductController;
+use App\Http\Controllers\ScrapeController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Facades\Password;
@@ -36,6 +37,12 @@ Route::group(['middleware' => ['auth:sanctum']], function () {
     Route::post('/logout', [AuthController::class, 'logout']);
 });
 
+// a route that returns a view with the password reset link request form
+Route::get('/forgot-password', function () {
+    return view('auth.forgot-password');
+})->middleware('guest')->name('password.request');
+
+//a route that handles the form submission request from the "forgotten password" view
 Route::post('/forgot-password', function (Request $request) {
     $request->validate(['email' => 'required|email']);
  
@@ -77,6 +84,9 @@ Route::post('/reset-password', function (Request $request) {
                 : back()->withErrors(['email' => [__($status)]]);
 })->middleware('guest')->name('password.update');
 
+/**
+ * a route that will return a view asking the user to click on the email verification link that was sent by Laravel after registration
+ */
 Route::get('/email/verify', function () {
     return view('auth.verify-email');
 })->middleware('auth')->name('verification.notice');
@@ -106,7 +116,13 @@ Route::get('/pdf', function () {
     return view('PDFTemplate');
 });
 
-
+/* Route::get('/', function() {
+    $crawler = Goutte::request('GET', 'https://duckduckgo.com/html/?q=Laravel');
+    $crawler->filter('.result__title .result__a')->each(function ($node) {
+      dump($node->text());
+    });
+    return view('welcome');
+}); */
 
 
 Route::group(['middleware' => ['auth:sanctum']], function () {
@@ -116,7 +132,7 @@ Route::group(['middleware' => ['auth:sanctum']], function () {
 Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
     return $request->user();
 });
-
+Route::get('/scrape', [ScrapeController::class, 'index']);
 /*Route::prefix('/user')->group(function(){
    Route::post('/reset', [AuthController::class, 'resetPassword']); 
    Route::post('/forgotPass', [AuthController::class, 'forgotPassword']);

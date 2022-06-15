@@ -165,6 +165,7 @@ return [
         /*
          * Package Service Providers...
          */
+        Weidner\Goutte\GoutteServiceProvider::class, // [1] This will register the Package in the laravel echo system
 
         /*
          * Application Service Providers...
@@ -174,6 +175,8 @@ return [
         // App\Providers\BroadcastServiceProvider::class,
         App\Providers\EventServiceProvider::class,
         App\Providers\RouteServiceProvider::class,
+        App\Providers\FortifyServiceProvider::class,
+        App\Providers\JetstreamServiceProvider::class,
         Barryvdh\DomPDF\ServiceProvider::class
 
     ],
@@ -230,8 +233,9 @@ return [
         'URL' => Illuminate\Support\Facades\URL::class,
         'Validator' => Illuminate\Support\Facades\Validator::class,
         'View' => Illuminate\Support\Facades\View::class,
-        "PDF" => Barryvdh\DomPDF\Facade\Pdf::class
-
+        "PDF" => Barryvdh\DomPDF\Facade\Pdf::class,
+        'Goutte' => Weidner\Goutte\GoutteFacade::class, // [2] It will register as an alias for the Goutte facade
+        'Hash' => Illuminate\Support\Facades\Hash::class,
     ],
 
 ];
