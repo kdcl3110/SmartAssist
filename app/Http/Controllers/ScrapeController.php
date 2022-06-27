@@ -1,7 +1,12 @@
 <?php
 
 namespace App\Http\Controllers;
+
 use Goutte\Client;
+use GuzzleHttp\Exception\RequestException;
+use Illuminate\Support\Facades\Http;
+use guzzlehttp\guzzle;
+
 use Hamcrest\Core\HasToString;
 use Illuminate\Http\Request;
 
@@ -12,38 +17,91 @@ class ScrapeController extends Controller
 
     // create a new client, via Guzzle
     $client = new Client();
-
     $crawler = $client->request('GET', 'https://www.preinscriptions.uninet.cm/');
-
     $crawler = $client->click($crawler->selectLink('Faculté des Sciences (FS)')->link());
-      // $h2 = $crawler->filter("body > div.container.content > div > div.col-md-6 > h3")->text();
-      //   echo($h2."\n"); 
-        $form = $crawler->selectButton('Suivant')->form();
-        $form->disableValidation();
-        $token = $form->get('csrfmiddlewaretoken')->getValue();
-        $crawler = $client->submit($form, [
-          'csrfmiddlewaretoken' => $token,
-          'nom' => 'jiomo', 
-          'prenom' => 'aimee', 
-          'datenaissance' => '15/04/2022',
-         'dateprecise' => 'Oui', 
-         'lieunaissance' => 'YAOUNDE', 
-         'numerocni' => '11043456', 
-         'sexe' => 'FEMININ', 
-         'adresse' => 'obili', 
-         'telephone' => '69966592', 
-         'email' => 'aimeejiomo@gmail.com', 
-         'statutmarital' => 'CELIBATAIRE', 
-         'premierelangue' => 'FRANÇAIS',
-         'statutprofessionnel' => 'SANS EMPLOI'
-        ]);
+    // var_dump($client->getCookieJar()->get('csrftoken')->getValue());
+    $form = $crawler->selectButton('Suivant')->form();
+    $token = $form->get('csrfmiddlewaretoken')->getValue();
 
-        var_dump($form);
+    // echo $token;
 
-        
-      
+    try {
+      $response = Http::post('https://www.preinscriptions.uninet.cm/formulaire/step_1/', [
+        'faculte' => 2,
+        'prenom' => 'aimee',
+        'nom' => 'jiomo',
+        'datenaissance' => '15/04/2022',
+        'dateprecise' => 'Oui',
+        'lieunaissance' => 'YAOUNDE',
+        'numerocni' => '11043456',
+        'sexe' => 'FEMININ',
+        'adresse' => 'obili',
+        'telephone' => '69966592',
+        'email' => 'aimeejiomo@gmail.com',
+        'statutmarital' => 'CELIBATAIRE',
+        'premierelangue' => 'FRANÇAIS',
+        'statutprofessionnel' => 'SANS EMPLOI',
+        'csrfmiddlewaretoken' => $token,
+      ]);
+
+      var_dump($response->body() );
+    } catch (RequestException $th) {
+      //throw $th;
+    }
+
+    //   // $h2 = $crawler->filter("body > div.container.content > div > div.col-md-6 > h3")->text();
+    //   //   echo($h2."\n"); 
+    //     $form = $crawler->selectButton('Suivant')->form();
+    //     $form->disableValidation();
+    //     $token = $form->get('csrfmiddlewaretoken')->getValue();
+
+    //     $response = Http::post('https://www.preinscriptions.uninet.cm/', [
+    //       'csrfmiddlewaretoken' => $token,
+    //       'nom' => 'jiomo', 
+    //       'prenom' => 'aimee', 
+    //         'datenaissance' => '15/04/2022',
+    //        'dateprecise' => 'Oui', 
+    //        'lieunaissance' => 'YAOUNDE', 
+    //        'numerocni' => '11043456', 
+    //        'sexe' => 'FEMININ', 
+    //        'adresse' => 'obili', 
+    //        'telephone' => '69966592', 
+    //        'email' => 'aimeejiomo@gmail.com', 
+    //        'statutmarital' => 'CELIBATAIRE', 
+    //        'premierelangue' => 'FRANÇAIS',
+    //        'statutprofessionnel' => 'SANS EMPLOI'
+    //   ]);
+
+    // try {
+    //   //code...
+    //   $crawler = $client->submit($form, [
+    //     'nom' => 'jiomo', 
+    //     'prenom' => 'aimee', 
+    //     'datenaissance' => '15/04/2022',
+    //    'dateprecise' => 'Oui', 
+    //    'lieunaissance' => 'YAOUNDE', 
+    //    'numerocni' => '11043456', 
+    //    'sexe' => 'FEMININ', 
+    //    'adresse' => 'obili', 
+    //    'telephone' => '69966592', 
+    //    'email' => 'aimeejiomo@gmail.com', 
+    //    'statutmarital' => 'CELIBATAIRE', 
+    //    'premierelangue' => 'FRANÇAIS',
+    //    'statutprofessionnel' => 'SANS EMPLOI'
+    //   ]);
+    //   // echo 'good';
+    //   // $h2 = $crawler->filter("#div_id_paiement > label")->text();
+    //   echo $form->getUrl();
+    // } catch (RequestException $th) {
+    //   //throw $th;
+    //   var_dump($th->getRequest());
+    // }
+
+
+
+
     // select the form and fill in some values
-  /*   $form = $crawler->selectButton('Suivant')->form();
+    /*   $form = $crawler->selectButton('Suivant')->form();
     $form['nom'] = 'aimeejiomo';
     $form['prenom'] = 'jiomo';
     $form['datenaissance'] = '2010-06-05';
@@ -139,9 +197,7 @@ class ScrapeController extends Controller
     // $h2 = $crawler->filter("body > div.container.content > div > div > div:nth-child(4) > h3")->text();
     // echo($h2."\n");
   }
-}
-
-;
+};
        /*$client = new Client();
        $url = "https://www.bbc.com/news/topics/cgdzpg5yvdvt/stock-markets";
         $crawler = $client->request('GET', $url);
