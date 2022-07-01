@@ -14,16 +14,16 @@ class AuthController extends Controller
     public function createAccount(Request $request)
     {
         $attr = $request->validate([
-            'name' => 'required|string|max:255',
+           // 'name' => 'required|string|max:255',
             'email' => 'required|string|email|unique:users,email',
-            'telephone' => 'required|string|unique:users,telephone|max:255',
+            'phone' => 'required|string|unique:users,phone|max:255',
             'password' => 'required|string|min:6|confirmed'
         ]);
 
         $user = User::create([
             'name' => $attr['name'],
             'email' => $attr['email'],
-            'telephone' => $attr['telephone'],
+            'phone' => $attr['phone'],
             'password' => bcrypt($attr['password']),
         ]);
 
