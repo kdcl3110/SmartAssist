@@ -293,3 +293,4 @@ class ScrapeController extends Controller
     //     $h1 = $crawler->filter("body > div.container.content")->text();
     //      echo($h1."\n");  
         /*$crawler = $client->click($crawler->selectLink('#actions > a:nth-child(3)')->link());*/
+// SbLoS8Mn1e2lCFCaMKBgVyrBuh1fxVAUqrt1fD7/e40=
