@@ -63,7 +63,7 @@ return [
             ]) : [],
         ],
 
-       /*  'pgsql' => [
+         'pgsql' => [
             'driver' => 'pgsql',
             'url' => env('DATABASE_URL'),
             'host' => env('DB_HOST', '127.0.0.1'),
@@ -76,9 +76,9 @@ return [
             'prefix_indexes' => true,
             'search_path' => 'public',
             'sslmode' => 'prefer',
-        ], */
+        ], 
 
-        'pgsql' => [
+        /*'pgsql' => [
             'driver' => 'pgsql',
             'host'     => $herokuDb['host'],
             'database' => substr($herokuDb['path'], 1),
@@ -88,7 +88,7 @@ return [
             'prefix' => '',
             'schema' => 'public',
             
-        ],
+        ],*/
 
         'sqlsrv' => [
             'driver' => 'sqlsrv',
