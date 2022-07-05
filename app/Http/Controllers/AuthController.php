@@ -36,7 +36,7 @@ class AuthController extends Controller
             'token' => str::random(40)
         ]);
 
-        Mail::to($user->email)->send(new VerifyMail($user));
+       /*  Mail::to($user->email)->send(new VerifyMail($user));
         if (Mail::failures()) {
             return response()->Fail('Sorry! Please try again latter');
         }
@@ -45,7 +45,7 @@ class AuthController extends Controller
             return new Response([
                 'user' => $user,
                 'token' => $user->createToken('tokens')->plainTextToken
-            ]);
+            ]); */
     } 
 
 
