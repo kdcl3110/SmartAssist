@@ -35,14 +35,12 @@ class AuthController extends Controller
             'user_id' => $user->id,
             'token' => str::random(40)
         ]);
-        echo( $user);
        Mail::to($user->email)->send(new VerifyMail($user));
-       echo $user->email;
         if (Mail::failures()) {
             return response()->Fail('Sorry! Please try again latter');
         }
         echo('Great! Successfully send in your mail');
-       // $this->registered($request, $user);
+        $this->registered($request, $user);
             return new Response([
                 'user' => $user,
                 'token' => $user->createToken('tokens')->plainTextToken
@@ -91,14 +89,14 @@ class AuthController extends Controller
     // this method signs out users by removing tokens
      public function logout(Request $request)
     {
-        //auth()->user()->tokens()->delete();
+        auth()->user()->tokens()->delete();
         return response()->json(['message' => 'User successfully signed out']);
     }
 
 
     protected function registered(Request $request, $user)
     {
-        //$this->logout($request);
+        $this->logout($request);
         return('We sent you an activation code. Check your email and click on the link to verify.');
     }
 
