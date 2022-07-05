@@ -90,14 +90,14 @@ class AuthController extends Controller
     // this method signs out users by removing tokens
      public function logout(Request $request)
     {
-        auth()->user()->tokens()->delete();
+        //auth()->user()->tokens()->delete();
         return response()->json(['message' => 'User successfully signed out']);
     }
 
 
     protected function registered(Request $request, $user)
     {
-        $this->logout($request);
+        //$this->logout($request);
         return('We sent you an activation code. Check your email and click on the link to verify.');
     }
 
@@ -123,7 +123,7 @@ class AuthController extends Controller
      public function authenticated(Request $request, $user)
      {
          if (!$user->verified) {
-             auth()->logout();
+             auth()->logout($request);
              return false;
          }
          return true;
