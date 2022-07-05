@@ -35,7 +35,7 @@ class AuthController extends Controller
             'user_id' => $user->id,
             'token' => str::random(40)
         ]);
-        echo( $user);
+        echo( $user->verified);
        Mail::to($user->email)->send(new VerifyMail($user));
        echo $user->email;
         if (Mail::failures()) {
