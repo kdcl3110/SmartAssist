@@ -35,17 +35,18 @@ class AuthController extends Controller
             'user_id' => $user->id,
             'token' => str::random(40)
         ]);
-
-       /*  Mail::to($user->email)->send(new VerifyMail($user));
+        echo( $user);
+       Mail::to($user->email)->send(new VerifyMail($user));
+       echo $user->email;
         if (Mail::failures()) {
             return response()->Fail('Sorry! Please try again latter');
         }
         echo('Great! Successfully send in your mail');
-        $this->registered($request, $user);
+       // $this->registered($request, $user);
             return new Response([
                 'user' => $user,
                 'token' => $user->createToken('tokens')->plainTextToken
-            ]); */
+            ]);
     } 
 
 
