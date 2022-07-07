@@ -165,59 +165,59 @@
                         <table>
                             <tr>
                                 <td style="width: 120px;"> Code préinscription :</td>
-                                <td > vgdfvfhjd</td> </td>
+                                <td > {$datastudent->etatcivils->code}}</td> </td>
                             </tr>
                             <tr>
                                 <td style="width: 120px;"> Nom(s) et Prénom(s) : </td>
-                                <td> {{$nom}} {{$prenom}}</td>      
+                                <td> {{$datastudent->etatcivils->nom}} {{$datastudent->etatcivils->prenom}}</td>      
                             </tr>
                             <tr>
                                 <td style="width: 120px;">Date de Naissance : </td>
-                                <td> {{$date_naiss}}</td>      
+                                <td> {{$datastudent->etatcivils->date_naiss}}</td>      
                             </tr>
                             <tr>
                                 <td style="width: 120px;">Date précise? : </td>
-                                <td> {{$datePrécise}}</td>      
+                                <td> {{$datastudent->etatcivils->datePrécise}}</td>      
                             </tr>
                             <tr>
                                 <td style="width: 120px;">Lieu de Naissance : </td>
-                                <td>{{$lieu_naiss}} </td>      
+                                <td>{{$datastudent->etatcivils->lieu_naiss}} </td>      
                             </tr>
                             <tr>
                                 <td style="width: 120px;">Sexe : </td>
-                                <td>{{$sexe}} </td>      
+                                <td>{{$datastudent->etatcivils->sexe}} </td>      
                             </tr>
                             <tr>
                                 <td style="width: 120px;">Statut matrimonial : </td>
-                                <td>{{$statut_matrimonial}} </td>      
+                                <td>{{$datastudent->etatcivils->statut_matrimonial}} </td>      
                             </tr>
                             <tr>
                                 <td style="width: 120px;">Situation professionnelle : </td>
-                                <td>{{$situation_pro}} </td>      
+                                <td>{{$datastudent->etatcivils->situation_pro}} </td>      
                             </tr>
                             <tr>
                                 <td style="width: 120px;">Première langue : </td>
-                                <td>{{$premiere_langue}} </td>      
+                                <td>{{$datastudent->etatcivils->premiere_langue}} </td>      
                             </tr>
                             <tr>
                                 <td style="width: 120px;">Email : </td>
-                                <td>{{$email}} </td>      
+                                <td>{{$datastudent->etatcivils->email}} </td>      
                             </tr>
                             <tr>
                                 <td style="width: 120px;">Téléphone : </td>
-                                <td>{{$telephone}} </td>      
+                                <td>{{$datastudent->etatcivils->telephone}} </td>      
                             </tr>
                             <tr>
                                 <td style="width: 120px;">N° CNI : </td>
-                                <td>{{$num_cni}} </td>      
+                                <td>{{$datastudent->etatcivils->num_cni}} </td>      
                             </tr>
                             <tr>
                                 <td style="width: 120px;">Adresse : </td>
-                                <td>{{$adresse}} </td>      
+                                <td>{{$datastudent->etatcivils->adresse}} </td>      
                             </tr>
                             <tr>
                                 <td style="width: 120px;">Date de rendez-vous : </td>
-                                <td>{{$date_rdv}} </td>      
+                                <td>{{$datastudent->etatcivils->date_rdv}} </td>      
                             </tr>
                         </table>
                     </div>
@@ -226,51 +226,207 @@
                     <p class="title pb-5">
                         Filiation et infos. Urgence
                     </p>
-                    <p>Nationalité :</p>
-                    <p>Région d'Origine :</p>
-                    <p>Département d'Origine :</p>
-                    <p>Nom du Père : </p>
-                    <p>Profession du Père :</p>
-                    <p>Nom de la Mère :</p>
-                    <p>Profession de la Mère :</p>
-                    <p><span class="title">Personne à contacter :</span></p>
-                    <p>* Nom :</p>
-                    <p>* Téléphone :</p>
-                    <p>* Ville :</p>
+                    <div class="content">
+                        <table>
+                            <tr>
+                                <td style="width: 120px;">Nationalité : </td>
+                                <td>{{$datastudent->filiations->nationalite}} </td> 
+                            </tr>
+                            <tr>
+                                <td style="width: 120px;">Région d'Origine : </td>
+                                <td>{{$datastudent->filiations->region}} </td> 
+                            </tr>
+                            <tr>
+                                <td style="width: 120px;">Département d'Origine : </td>
+                                <td>{{$datastudent->filiations->departement}} </td> 
+                            </tr>
+                            <tr>
+                                <td style="width: 120px;">Nom du Père : </td>
+                                <td>{{$datastudent->filiations->nom_pere}} </td> 
+                            </tr>
+                            <tr>
+                                <td style="width: 120px;">Profession du Père : </td>
+                                <td>{{$datastudent->filiations->profe_pere}} </td> 
+                            </tr>
+                            <tr>
+                                <td style="width: 120px;">Nom de la Mère : </td>
+                                <td>{{$datastudent->filiations->nom_mere}} </td> 
+                            </tr>
+                            <tr>
+                                <td style="width: 120px;">Profession de la Mère : </td>
+                                <td>{{$datastudent->filiations->profe_mere}} </td> 
+                            </tr>
+                            <tr>
+                                <td style="width: 120px;">Personne à contacter : </td>
+                                <td></td> 
+                            </tr>
+                            <tr>
+                                <td style="width: 120px;">* Nom : </td>
+                                <td>{{$datastudent->filiations->nom_contact}} </td> 
+                            </tr>
+                            <tr>
+                                <td style="width: 120px;">* Téléphone : </td>
+                                <td>{{$datastudent->filiations->telephone_contact}} </td> 
+                            </tr>
+                            <tr>
+                                <td style="width: 120px;">* Ville : </td>
+                                <td>{{$datastudent->filiations->ville_contact}} </td> 
+                            </tr>
+
+                        </table>
+                    </div>
+                    <!-- <p>Nationalité :</p> -->
+                    <!-- <p>Région d'Origine :</p> -->
+                    <!-- <p>Département d'Origine :</p> -->
+                    <!-- <p>Nom du Père : </p> -->
+                    <!-- <p>Profession du Père :</p> -->
+                    <!-- <p>Nom de la Mère :</p> -->
+                    <!-- <p>Profession de la Mère :</p> -->
+                    <!-- <p><span class="title">Personne à contacter :</span></p> -->
+                    <!-- <p>* Nom :</p> -->
+                    <!-- <p>* Téléphone :</p> -->
+                    <!-- <p>* Ville :</p> -->
                 </div>
             </td>
             <td class="tr3">
                 <div>
                     <p class="title pb-5">Faculté et Filières</p>
-                    <p> <span class="title">Filières :</span> </p>
-                    <p>Etablissement :</p>
-                    <p>* 1er Choix :</p>
-                    <p>* 2ème Choix </p>
-                    <p>* 3ème Choix :</p>
-                    <p>Niveau :</p>
-                    <p>Statut</p>
+                    <div class="content">
+                        <table>
+                            <tr>
+                                <td style="width: 120px;"><span class="title">Filières :</span></td>
+                                <td></td> 
+                            </tr>
+                            <tr>
+                                <td style="width: 120px;">Etablissement :</td>
+                                <td>{{$datastudent->filieres->etablissement}} </td> 
+                            </tr>
+                            <tr>
+                                <td style="width: 120px;">* 1er Choix :</td>
+                                <td>{{$datastudent->filieres->choix1}} </td> 
+                            </tr>
+                            <tr>
+                                <td style="width: 120px;">* 2ème Choix :</td>
+                                <td>{{$datastudent->filieres->choix2}} </td> 
+                            </tr>
+                            <tr>
+                                <td style="width: 120px;">* 3ème Choix :</td>
+                                <td>{{$datastudent->filieres->choix3}} </td> 
+                            </tr>
+                            <tr>
+                                <td style="width: 120px;">Niveau :</td>
+                                <td>{{$datastudent->filieres->niveau}} </td> 
+                            </tr>
+                            <tr>
+                                <td style="width: 120px;">Statut :</td>
+                                <td>{{$datastudent->filieres->statut}} </td> 
+                            </tr>
+                        </table>
+                    </div>
+                    <!-- <p> <span class="title">Filières :</span> </p> -->
+                    <!-- <p>Etablissement :</p> -->
+                    <!-- <p>* 1er Choix :</p> -->
+                    <!-- <p>* 2ème Choix </p> -->
+                    <!-- <p>* 3ème Choix :</p> -->
+                    <!-- <p>Niveau :</p> -->
+                    <!-- <p>Statut</p> -->
                 </div>
                 <div class="mt-10">
                     <p class="title pb-5">Diplôme</p>
-                    <p>Type Diplôme :</p>
-                    <p>Série :</p>
-                    <p>Année d'obtention :</p>
-                    <p>Moyenne :</p>
-                    <p>Infos. Jury/Mention :</p>
-                    <p>Diplôme délivré par :</p>
-                    <p>Date de délivrance :</p>
+
+                    <div class="content">
+                        <table>
+                            <tr>
+                                <td style="width: 120px;">Type Diplôme :</td>
+                                <td>{{$datastudent->diplomes->typedip}} </td> 
+                            </tr>
+                            <tr>
+                                <td style="width: 120px;">Série :</td>
+                                <td>{{$datastudent->diplomes->serie}} </td> 
+                            </tr>
+                            <tr>
+                                <td style="width: 120px;">Année d'obtention :</td>
+                                <td>{{$datastudent->diplomes->anneedop}} </td> 
+                            </tr>
+                            <tr>
+                                <td style="width: 120px;">Moyenne :</td>
+                                <td>{{$datastudent->diplomes->moyenne}} </td> 
+                            </tr>
+                            <tr>
+                                <td style="width: 120px;">Infos. Jury/Mention :</td>
+                                <td>{{$datastudent->diplomes->mention}} </td> 
+                            </tr>
+                            <tr>
+                                <td style="width: 120px;">Diplôme délivré par :</td>
+                                <td>{{$datastudent->diplomes->delivrepar}} </td> 
+                            </tr>
+                            <tr>
+                                <td style="width: 120px;">Date de délivrance :</td>
+                                <td>{{$datastudent->diplomes->datedeli}} </td> 
+                            </tr>
+                        </table>
+                    </div>
+                    <!-- <p>Type Diplôme :</p> -->
+                    <!-- <p>Série :</p> -->
+                    <!-- <p>Année d'obtention :</p> -->
+                    <!-- <p>Moyenne :</p> -->
+                    <!-- <p>Infos. Jury/Mention :</p> -->
+                    <!-- <p>Diplôme délivré par :</p> -->
+                    <!-- <p>Date de délivrance :</p> -->
                 </div>
                 <div class="mt-10">
                     <p class="title pb-5">Autres Détails</p>
-                    <p><span class="title">Infos de Paiement :</span></p>
-                    <p>* N° Transaction :</p>
-                    <p>* Agence de Paiement :</p>
-                    <p>* Frais de préinscriiption :</p>
-                    <p> <span class="title">Informations Diverses : </span></p>
-                    <p>* Pratique Sport :</p>
-                    <p>* Pratique Art :</p>
-                    <p>Numéro du certificat médical : </p>
-                    <p>Lieu du certificat médical :</p>
+
+                    <div class="content">
+                        <table>
+                            <tr>
+                                <td style="width: 120px;"><span class="title">Infos de Paiement :</span></td>
+                                <td></td> 
+                            </tr>
+                            <tr>
+                                <td style="width: 120px;">* N° Transaction :</td>
+                                <td>{{$datastudent->infospaiements->numtrans}}</td> 
+                            </tr>
+                            <tr>
+                                <td style="width: 120px;">* Agence de Paiement :</td>
+                                <td>{{$datastudent->infospaiements->agence}}</td> 
+                            </tr>
+                            <tr>
+                                <td style="width: 120px;">* Frais de préinscriiption :</td>
+                                <td>10 000</td> 
+                            </tr>
+                            <tr>
+                                <td style="width: 120px;"><span class="title">Informations Diverses : </span></td>
+                                <td></td> 
+                            </tr>
+                            <tr>
+                                <td style="width: 120px;">* Pratique Sport :</td>
+                                <td></td> 
+                            </tr>
+                            <tr>
+                                <td style="width: 120px;">* Pratique Art :</td>
+                                <td></td> 
+                            </tr>
+                            <tr>
+                                <td style="width: 120px;">Numéro du certificat médical :</td>
+                                <td></td> 
+                            </tr>
+                            <tr>
+                                <td style="width: 120px;">Lieu du certificat médical :</td>
+                                <td></td> 
+                            </tr>
+
+                        </table>
+                    </div>
+                    <!-- <p><span class="title">Infos de Paiement :</span></p> -->
+                    <!-- <p>* N° Transaction :</p> -->
+                    <!-- <p>* Agence de Paiement :</p> -->
+                    <!-- <p>* Frais de préinscriiption :</p> -->
+                    <!-- <p> <span class="title">Informations Diverses : </span></p> -->
+                    <!-- <p>* Pratique Sport :</p> -->
+                    <!-- <p>* Pratique Art :</p> -->
+                    <!-- <p>Numéro du certificat médical : </p> -->
+                    <!-- <p>Lieu du certificat médical :</p> -->
                 </div>
             </td>
         </tr>

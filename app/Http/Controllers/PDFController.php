@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 // use Barryvdh\DomPDF\PDF as DomPDFPDF;
 
+use App\Models\DataStudents;
 use DateTime;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Date;
@@ -49,9 +50,13 @@ class PDFController extends Controller
             'date' => '19/O3/22',
         ];
         $etats = DB::table('etatcivils')->find($id);
-        $etat = json_decode(json_encode($etats), true);
-        //echo var_dump($data) ;
-       $pdf = PDF::loadView('PDFTemplate', $etat);
+        $datastudent = DataStudents::with('etatcivils','filiations','filieres','diplomes','infospaiements','infosdiverses')->find($id);
+        //return compact('datastudent');
+        //return json_decode(json_encode($datastudent), true);
+       //return  json_encode($etats);
+        //echo $etat;
+        //echo var_dump($datastudent) ;
+        $pdf = PDF::loadView('PDFTemplate', compact('datastudent'));
 
         
         $path = public_path('pdf/');
@@ -61,8 +66,7 @@ class PDFController extends Controller
         // return $pdf->download($fileName);
 
         $path_pdf = 'pdf/' . $date->getTimestamp() . '.pdf';
-        return response(['fiche' =>asset($path_pdf)]);
-        // return response(['fiche' => storage_path('app/public/pdf/invoice.pdf')], 200);
+        return response(['fiche' =>asset($path_pdf)]); 
     }
 
     /**

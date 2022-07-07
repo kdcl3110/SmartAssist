@@ -16,6 +16,7 @@ class CreateEtatcivilsTable extends Migration
         Schema::create('etatcivils', function (Blueprint $table) {
             $table->id();
             $table->foreignId('user_id')->constrained();
+            //$table->foreignId('datastudent_id')->constrained();
             $table->string('code');
             $table->string('nom');
             $table->string('prenom' );

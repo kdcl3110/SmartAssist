@@ -9,6 +9,7 @@ use Illuminate\Database\Eloquent\Model;
 class etatcivils extends Model
 {
     use HasFactory;
+    protected $guarded = [];
     //public $timestamps = false;
     protected $fillable = [
         'user_id',
@@ -18,7 +19,7 @@ class etatcivils extends Model
         'date_naiss',
         'datePrécise',
         'lieu_naiss',
-        'sexe',
+        'sexe', 
         'statut_matrimonial',
         'situation_pro',
         'premiere_langue',
@@ -28,8 +29,8 @@ class etatcivils extends Model
         'adresse',
         'date_rdv',
     ];
-    public function DataStudents()
+    public function dataStudents()
     {
-        return $this->belongsTo(DataStudents::class);
+        return $this->hasOne(DataStudents::class);
     }
 }

@@ -16,6 +16,7 @@ class CreateFiliationsTable extends Migration
         Schema::create('filiations', function (Blueprint $table) {
             $table->id();
             $table->foreignId('user_id')->constrained();
+            //$table->foreignId('datastudent_id')->constrained();
             $table->string('nationalite');
             $table->string('region');
             $table->string('departement' );
