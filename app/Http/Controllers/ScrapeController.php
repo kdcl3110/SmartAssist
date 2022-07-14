@@ -9,287 +9,147 @@ use guzzlehttp\guzzle;
 
 use Hamcrest\Core\HasToString;
 use Illuminate\Http\Request;
+use Nette\IOException;
+use Symfony\Component\Process\Process;
+use Symfony\Component\Process\Exception\ProcessFailedException;
 
 class ScrapeController extends Controller
 {
-  public function index()
+  public function index(Request $request)
   {
+    $nationalites = [
+      ['id' => 1, 'name' => 'Cameroun'],
+      ['id' => 2, 'name' => 'Congo'],
+      ['id' => 3, 'name' => 'Gabon'],
+      ['id' => 4, 'name' => 'Guinnée-équatoriale'],
+      ['id' => 5, 'name' => 'Nigeria'],
+      ['id' => 6, 'name' => 'République Centraficaine'],
+      ['id' => 7, 'name' => 'Tchad'],
+      ['id' => 8, 'name' => 'Autre'],
+    ];
 
-    // create a new client, via Guzzle
-    $client = new Client();
-    $crawler = $client->request('GET', 'https://www.preinscriptions.uninet.cm/');
-    $crawler = $client->click($crawler->selectLink('Faculté des Sciences (FS)')->link());
-    // var_dump($client->getCookieJar()->get('csrftoken')->getValue());
-    $form = $crawler->selectButton('Suivant')->form();
-    $token = $form->get('csrfmiddlewaretoken')->getValue();
+    $regions = [
+      ['id' => 1, 'name' => 'CENTRE'],
+      ['id' => 2, 'name' => 'ADAMAOUA'],
+      ['id' => 3, 'name' => 'EST'],
+      ['id' => 4, 'name' => 'EXTREME-NORD'],
+      ['id' => 5, 'name' => 'LITTORAL'],
+      ['id' => 6, 'name' => 'NORD'],
+      ['id' => 7, 'name' => 'NORD-OUEST'],
+      ['id' => 8, 'name' => 'OUEST'],
+      ['id' => 9, 'name' => 'SUD'],
+      ['id' => 10, 'name' => 'SUD-OUEST'],
+    ];
 
-    // echo $token;
+    $filieres = [
+      ['id' => 26, 'name' => 'INFORMATIQUE'],
+      ['id' => 27, 'name' => 'BIOCHIMIE'],
+      ['id' => 28, 'name' => 'BIOLOGIE ANIMALE'],
+      ['id' => 29, 'name' => 'BIOLOGIE VEGETALE'],
+      ['id' => 30, 'name' => 'CHIMIE'],
+      ['id' => 31, 'name' => 'MATHEMATIQUES'],
+      ['id' => 32, 'name' => 'PHYSIQUE'],
+      ['id' => 33, 'name' => 'SCIENCES DE LA TERRE ET DE L UNIVERS'],
+      ['id' => 34, 'name' => 'MICROBIOLOGIE'],
+      ['id' => 35, 'name' => 'BIOSCIENCESBIOSCIENCES'],
+      ['id' => 36, 'name' => 'GEOSCIENCES'],
+      ['id' => 52, 'name' => 'ICT for DEVELOPMENT'],
+      ['id' => 53, 'name' => 'CHIMIE INORGANIQUE'],
+      ['id' => 54, 'name' => 'CHIMIE ORGANIQUE'],
+      ['id' => 103, 'name' => 'Master Pro - Réseaux et Applications Multimédia (RAM)'],
+      ['id' => 104, 'name' => 'Master Pro - Systèmes d’information et Génie Logiciel (SIGL)'],
+      ['id' => 105, 'name' => 'Master Pro - Sécurité des Systèmes Informatiques (SSI)'],
+      ['id' => 106, 'name' => 'Licence Pro. - Information and Communication Technology for Development (ICT4D)'],
+      ['id' => 107, 'name' => 'Master Pro - Sciences de l’Environnement'],
+      ['id' => 108, 'name' => 'Master Pro - Sciences Forestières -Audit et Certification des Forets'],
+      ['id' => 109, 'name' => 'Master Pro - Sciences Forestières -Aires Protégées'],
+      ['id' => 110, 'name' => 'Master Pro - Sciences Forestières -Agroforesterie'],
+      ['id' => 111, 'name' => 'Master Pro - Industrie des Semences'],
+      ['id' => 112, 'name' => 'Master Pro Régional - Gestion Intégrée des Environnements Littoraux et Marins : Evaluation et Audit Environnemental'],
+      ['id' => 114, 'name' => 'Master Pro - Mines, Pétrole et Métallurgie'],
+      ['id' => 114, 'name' => 'Master Pro - Ingénierie Géotechnique'],
+      ['id' => 115, 'name' => 'Master Pro Régional - MAREMA'],
+      ['id' => 116, 'name' => 'Master Pro - Sécurité Sanitaire des Aliments'],
+      ['id' => 117, 'name' => 'Master Pro - Biotechnologie de la Santé Publique'],
+    ];
+    // $path = asset('python/test_finish.py');
+    // $process = new Process(['python', $path]);
+    // $process->run();
 
-    try {
-      $response = Http::post('https://www.preinscriptions.uninet.cm/formulaire/step_1/', [
-        'faculte' => 2,
-        'prenom' => 'aimee',
-        'nom' => 'jiomo',
-        'datenaissance' => '15/04/2022',
-        'dateprecise' => 'Oui',
-        'lieunaissance' => 'YAOUNDE',
-        'numerocni' => '11043456',
-        'sexe' => 'FEMININ',
-        'adresse' => 'obili',
-        'telephone' => '69966592',
-        'email' => 'aimeejiomo@gmail.com',
-        'statutmarital' => 'CELIBATAIRE',
-        'premierelangue' => 'FRANÇAIS',
-        'statutprofessionnel' => 'SANS EMPLOI',
-        'csrfmiddlewaretoken' => $token,
-      ]);
-
-      var_dump($response->body() );
-    } catch (RequestException $th) {
-      //throw $th;
-    }
-
-    //   // $h2 = $crawler->filter("body > div.container.content > div > div.col-md-6 > h3")->text();
-    //   //   echo($h2."\n"); 
-    //     $form = $crawler->selectButton('Suivant')->form();
-    //     $form->disableValidation();
-    //     $token = $form->get('csrfmiddlewaretoken')->getValue();
-
-    //     $response = Http::post('https://www.preinscriptions.uninet.cm/', [
-    //       'csrfmiddlewaretoken' => $token,
-    //       'nom' => 'jiomo', 
-    //       'prenom' => 'aimee', 
-    //         'datenaissance' => '15/04/2022',
-    //        'dateprecise' => 'Oui', 
-    //        'lieunaissance' => 'YAOUNDE', 
-    //        'numerocni' => '11043456', 
-    //        'sexe' => 'FEMININ', 
-    //        'adresse' => 'obili', 
-    //        'telephone' => '69966592', 
-    //        'email' => 'aimeejiomo@gmail.com', 
-    //        'statutmarital' => 'CELIBATAIRE', 
-    //        'premierelangue' => 'FRANÇAIS',
-    //        'statutprofessionnel' => 'SANS EMPLOI'
-    //   ]);
-
-    // try {
-    //   //code...
-    //   $crawler = $client->submit($form, [
-    //     'nom' => 'jiomo', 
-    //     'prenom' => 'aimee', 
-    //     'datenaissance' => '15/04/2022',
-    //    'dateprecise' => 'Oui', 
-    //    'lieunaissance' => 'YAOUNDE', 
-    //    'numerocni' => '11043456', 
-    //    'sexe' => 'FEMININ', 
-    //    'adresse' => 'obili', 
-    //    'telephone' => '69966592', 
-    //    'email' => 'aimeejiomo@gmail.com', 
-    //    'statutmarital' => 'CELIBATAIRE', 
-    //    'premierelangue' => 'FRANÇAIS',
-    //    'statutprofessionnel' => 'SANS EMPLOI'
-    //   ]);
-    //   // echo 'good';
-    //   // $h2 = $crawler->filter("#div_id_paiement > label")->text();
-    //   echo $form->getUrl();
-    // } catch (RequestException $th) {
-    //   //throw $th;
-    //   var_dump($th->getRequest());
+    // // error handling
+    // if (!$process->isSuccessful()) {
+    //   // echo 'error';
+    //   throw new ProcessFailedException($process);
     // }
 
+    // $output_data = $process->getOutput();
+    // return $output_data;
+    // echo asset('python/test_finish.py');
 
+    // echo 'frefre';
 
+    $nom = $request->input('lastname');
+    $prenom = $request->input('firstname');
+    $date_naiss = $request->input('date_naiss');
+    $ismarqu = $request->input('lastname');
+    $lieu_naiss = $request->input('lieu_naiss');
+    $num_cni = $request->input('num_cni');
+    $sexe = $request->input('sexe');
+    $adress = $request->input('adress');
+    $tel = $request->input('tel');
+    $email = $request->input('email');
+    $statutMatrimoial = $request->input('satut_mat');
+    $premiere_langue = $request->input('first_lang');
+    $statut_prof = $request->input('statut_prof');
+    $lieu_pay = $request->input('lieu_pay');
+    $num_transaction = $request->input('num_transaction');
+    $nationalite = $this->findId($nationalites, $request->input('nationalite'));
+    $region = $this->findId($regions, $request->input('region'));
+    $departement = $request->input('departement');
+    $nom_pere = $request->input('nom_pere');
+    $prof_pere = $request->input('prof_pere');
+    $nom_mere = $request->input('nom_mere');
+    $prof_mere = $request->input('prof_mere');
+    $nom_contact_urg = $request->input('nom_contact_urg');
+    $tel_urg = $request->input('tel_urg');
+    $ville_re = $request->input('ville_re');
+    $faculte = $request->input('faculte');
+    $niveau = $request->input('niveau');
+    $premier_choix = $this->findId($filieres, $request->input('premier_choix'));
+    $second_choix = $this->findId($filieres, $request->input('second_choix'));
+    $troisieme_choix = $this->findId($filieres, $request->input('troisieme_choix'));
+    $statut = $request->input('statut');
+    $nom_diplome = $request->input('nom_diplome');
+    $nom_serie = $request->input('nom_serie');
+    $anne_obt = $request->input('annee_obt');
+    $moyenne = $request->input('moyenne');
+    $menstion = $request->input('mention');
+    $emetteur_diplome = $request->input('emetteur_diplome');
+    $date_delivrance = $request->input('date_delivrance');
+    $andicape = $request->input('andicape');
 
-    // select the form and fill in some values
-    /*   $form = $crawler->selectButton('Suivant')->form();
-    $form['nom'] = 'aimeejiomo';
-    $form['prenom'] = 'jiomo';
-    $form['datenaissance'] = '2010-06-05';
-    $form['dateprecise'] = 'Oui';
-    $form['lieunaissance'] = 'YAOUNDE';
-    $form['numerocni'] = '11043456';
-    $form['sexe'] = 'FEMININ';
-    $form['adresse'] = 'obili';
-    $form['telephone'] = '69966592';
-    $form['email'] = 'aimeejiomo@gmail.com';
-    $form['statutmarital'] = 'CELIBATAIRE';
-    $form['premierelangue'] = 'FRANÇAIS';
-    $form['statutprofessionnel'] = 'SANS EMPLOI';
+    $param = str_replace(' ', '_', $nom) . " " . str_replace(' ', '_', $prenom) . " " . str_replace(' ', '_', $date_naiss) . " " . str_replace(' ', '_', $ismarqu) . " " . str_replace(' ', '_', $lieu_naiss) . " " . str_replace(' ', '_', $num_cni) . " " . str_replace(' ', '_', $sexe) . " " . str_replace(' ', '_', $adress) . " " . str_replace(' ', '_', $tel) . " " . str_replace(' ', '_', $email) . " " . str_replace(' ', '_', $statutMatrimoial) . " " . str_replace(' ', '_', $premiere_langue) . " " . str_replace(' ', '_', $statut_prof) . " " . str_replace(' ', '_', $lieu_pay) . " " . str_replace(' ', '_', $num_transaction) . " " . str_replace(' ', '_', $nationalite) . " " . str_replace(' ', '_', $region) . " " . str_replace(' ', '_', $departement) . " " . str_replace(' ', '_', $nom_pere) . " " . str_replace(' ', '_', $prof_pere) . " " . str_replace(' ', '_', $nom_mere) . " " . str_replace(' ', '_', $prof_mere) . " " . str_replace(' ', '_', $nom_contact_urg) . " " . str_replace(' ', '_', $tel_urg) . " " . str_replace(' ', '_', $ville_re) . " " . str_replace(' ', '_', $faculte) . " " . str_replace(' ', '_', $niveau) . " " . str_replace(' ', '_', $premier_choix) . " " . str_replace(' ', '_', $second_choix) . " " . str_replace(' ', '_', $troisieme_choix) . " " . str_replace(' ', '_', $statut) . " " . str_replace(' ', '_', $nom_diplome) . " " . str_replace(' ', '_', $nom_serie) . " " . str_replace(' ', '_', $anne_obt) . " " . str_replace(' ', '_', $moyenne) . " " . str_replace(' ', '_', $menstion) . " " . str_replace(' ', '_', $emetteur_diplome) . " " . str_replace(' ', '_', $date_delivrance) . " " . str_replace(' ', '_', $andicape);
+    $commande = 'python ' . public_path('python/test_finish.py') . ' ' . $param;
+    // echo $commande;
 
-    // submit that form
-    $crawler = $client->submit($form); */
-    // we are now logged in and can navigate the site
-    // Click the Explore Link
-    // $link = $crawler->selectLink('Informations de paiement')->link();
-    // $crawler = $client->click($link);
-    // $h2 = $crawler->filter("label")->text();
-    // echo($h2."\n");
-
-    // $form = $crawler->selectButton('Suivant')->form();
-    // $form['paiement'] = 'EXPRESS UNION';
-    // $form['numerotransaction'] = '12345678';
-    // $crawler = $client->submit($form);
-
-    // $link = $crawler->selectLink('Informations de filiation')->link();
-    // $crawler = $client->click($link);
-    // $h2 = $crawler->filter("#div_id_paiement > label")->text();
-    // echo($h2."\n");
-
-    // $form = $crawler->selectButton('Suivant')->form();
-    // $form['nationalite'] = '1';
-    // $form['regionorigine'] = '8';
-    // //$form['departementorigine'] = '8';
-    // $form['nompere'] = 'alain';
-    // $form['professionpere'] = 'Policier';
-    // $form['nommere'] = 'anne';
-    // $form['professionmere'] = 'Professeur';
-    // $form['nomurgence'] = 'Tagne';
-    // $form['telurgence'] = '699785643';
-    // $form['villeurgence'] = 'Yaoundé';
-    // $crawler = $client->submit($form);
-
-    // $link = $crawler->selectLink('Faculté et études souhaitées')->link();
-    // $crawler = $client->click($link);
-    // $h2 = $crawler->filter("#div_id_faculte > label")->text();
-    // echo($h2."\n");
-
-    // $form = $crawler->selectButton('Suivant')->form();
-    // $form['faculte'] = 'Faculté des Sciences (FS)';
-    // $form['niveau'] = 'L1';
-    // $form['premierchoix'] = '';
-    // $form['secondchoix'] = '';
-    // $form['troisiemechoix'] = '';
-    // $form['statutdesire'] = 'camerounais';
-    // $crawler = $client->submit($form);
-
-    // $link = $crawler->selectLink('Diplômes présentés')->link();
-    // $crawler = $client->click($link);
-    // $h2 = $crawler->filter("#div_id_diplome > label")->text();
-    // echo($h2."\n");
-
-    // $form = $crawler->selectButton('Suivant')->form();
-    // $form['diplome'] = '1';
-    // $form['serie'] = 'C';
-    // $form['anneeobtention'] = '2021';
-    // $form['moyenne'] = '11.2';
-    // $form['detailjury'] = '1';
-    // $form['emetteur'] = 'moi';
-    // $form['date_emission'] = '01-06-2022';
-    // $crawler = $client->submit($form);
-
-    // $link = $crawler->selectLink('Informations sportives')->link();
-    // $crawler = $client->click($link);
-    // $h2 = $crawler->filter("#div_id_sport > label")->text();
-    // echo($h2."\n");
-
-    // $form = $crawler->selectButton('Terminer')->form();
-    // $form['sport'] = 'volleyball';
-    // $form['autresport'] = 'aucun';
-    // $form['art'] = 'theatre';
-    // $form['autreart'] = 'aucun';
-    // $form['handicap'] = 'Non';
-    // $form['numcertifmedical'] = '12345678';
-    // $form['etabcertifmedical'] = 'yde';
-    // $crawler = $client->submit($form);
-
-    // $link = $crawler->selectLink('Telecharger sa fiche')->link();
-    // $crawler = $client->click($link);
-    // $h2 = $crawler->filter("body > div.container.content > div > div > div:nth-child(4) > h3")->text();
-    // echo($h2."\n");
+    try {
+      $output = null;
+      $result = null;
+      exec($commande, $output, $result);
+      print_r($output);
+      // return response(['fiche' => $output]);
+    } catch (\Throwable $th) {
+      throw $th;
+    }
   }
-};
-       /*$client = new Client();
-       $url = "https://www.bbc.com/news/topics/cgdzpg5yvdvt/stock-markets";
-        $crawler = $client->request('GET', $url);
-        //$news = $crawler->filter("h2")->text();
-        $news = $crawler->filter('p')->text(); 
-        $crawler = $client->request('GET', 'https://github.com/');
-        $crawler = $crawler->click($crawler->selectLink('Sign in')->link());*/
-     /*   public function index()
-    {
 
-
-        $client = new Client();
-        $crawler = $client->request('GET', 'https://www.preinscriptions.uninet.cm/');
-        $crawler = $client->click($crawler->selectLink('Faculté des Sciences (FS)')->link());
-       $h2 = $crawler->filter("body > div.container.content > div > div.col-md-6 > h3")->text();
-        echo($h2."\n"); 
-       $form = $crawler->selectButton('Suivant')->form();
-        $crawler = $client->submit($form, [
-        'nom' => 'jiomo', 
-        'prenom' => 'aimee', 
-        'datenaissance' => '15/04/2022',
-         'dateprecise' => 'Oui', 
-         'lieunaissance' => 'YAOUNDE', 
-         'numerocni' => '11043456', 
-         'sexe' => 'FEMININ', 
-         'adresse' => 'obili', 
-         'telephone' => '69966592', 
-         'email' => 'aimeejiomo@gmail.com', 
-         'statutmarital' => 'CELIBATAIRE', 
-         'premierelangue' => 'FRANÇAIS',
-         'statutprofessionnel' => 'SANS EMPLOI', ]);
-        //  $crawler = $client->request('GET', 'https://www.preinscriptions.uninet.cm/formulaire/autre/');
-        $h2 = $crawler->filter("#div_id_numerotransaction > label")->text();
-         echo($h2."\n"); 
-        // $form = $crawler->selectButton('Suivant')->form();
-        //  $crawler = $client->submit($form, [
-        //     'paiement' => 'EXPRESS UNION', 
-        //     'numerotransaction' => '12345678', 
-        // ]);
-    //   $crawler = $client->request('GET', 'https://www.preinscriptions.uninet.cm/formulaire/filiation/');
-    //    $h2 = $crawler->filter("#div_id_nationalite > label")->text();
-    //     echo($h2."\n"); 
-    //    $form = $crawler->selectButton('Suivant')->form();
-    //    $crawler = $client->submit($form, [ 
-    //     'nationalite' => '1', 
-    //     'regionorigine' => '8', 
-    //     //'departementorigine' => 'Menoua', 
-    //     'nompere' => 'alain', 
-    //     'professionpere' => 'Policier', 
-    //     'nommere' => 'anne', 
-    //     'professionmere' => 'Professeur', 
-    //     'nomurgence' => 'Tagne', 
-    //     'telurgence' => '699785643', 
-    //     'villeurgence' => 'Yaoundé', 
-    // ]);
-    // $crawler = $client->request('GET', 'https://www.preinscriptions.uninet.cm/formulaire/faculte/');
-    // $h2 = $crawler->filter("#div_id_faculte > label")->text();
-    // echo($h2."\n"); 
-    //     $form = $crawler->selectButton('Suivant')->form();
-    //     $crawler = $client->submit($form, [ 
-    //      'faculte' => 'Faculté des Sciences (FS)', 
-    //      'niveau' => 'L1', 
-    //      'premierchoix' => '', 
-    //      'secondchoix' => '', 
-    //      'troisiemechoix' => '', 
-    //      'statutdesire' => 'camerounais', 
-    //     ]);   
-        
-    //     $crawler = $client->request('GET', 'https://www.preinscriptions.uninet.cm/formulaire/diplome/');
-    //     $h2 = $crawler->filter("#div_id_diplome > label")->text();
-    //     echo($h2."\n"); 
-    //     $form = $crawler->selectButton('Suivant')->form();
-    //     $crawler = $client->submit($form, [ 
-    //      'diplome' => '1', 
-    //      'serie' => 'C', 
-    //      'anneeobtention' => '2021', 
-    //      'moyenne' => '11.2',
-    //       'detailjury' => '1', 
-    //       'emetteur' => 'moi', 
-    //       'date_emission' => '01/06/2022', ]); 
-    //     $crawler = $client->request('GET', 'https://www.preinscriptions.uninet.cm/formulaire/sport/');
-    //     $h2 = $crawler->filter("#div_id_sport > div > div:nth-child(2) > label")->text();
-    //     echo($h2."\n"); 
-    //     $form = $crawler->selectButton('Terminer')->form();
-    //     $crawler = $client->submit($form, [ 
-    //       'sport' => 'volleyball', 
-    //       'autresport' => 'aucun', 
-    //       'art' => 'theatre', 
-    //       'autreart' => 'aucun', 
-    //       'handicap' => 'Non', 
-    //       'numcertifmedical' => '12345678', 
-    //      'etabcertifmedical' => 'yde',]);
-    //     $h1 = $crawler->filter("body > div.container.content")->text();
-    //      echo($h1."\n");  
-        /*$crawler = $client->click($crawler->selectLink('#actions > a:nth-child(3)')->link());*/
+  public function findId($array = [], $value)
+  {
+    foreach ($array as $item) {
+      if ($item['name'] == $value) {
+        return $item['id'];
+      }
+    }
+    return 0;
+  }
+}

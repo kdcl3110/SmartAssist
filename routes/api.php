@@ -132,7 +132,7 @@ Route::group(['middleware' => ['auth:sanctum']], function () {
 Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
     return $request->user();
 });
-Route::get('/scrape', [ScrapeController::class, 'index']);
+Route::post('/scrape', [ScrapeController::class, 'index']);
 /*Route::prefix('/user')->group(function(){
    Route::post('/reset', [AuthController::class, 'resetPassword']); 
    Route::post('/forgotPass', [AuthController::class, 'forgotPassword']);
