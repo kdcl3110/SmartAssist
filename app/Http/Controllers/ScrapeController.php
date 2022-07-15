@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Goutte\Client;
 use GuzzleHttp\Exception\RequestException;
 use Illuminate\Support\Facades\Http;
+use GuzzleHttp\Cookie\CookieJar;
 use guzzlehttp\guzzle;
 
 use Hamcrest\Core\HasToString;

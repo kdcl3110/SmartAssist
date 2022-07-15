@@ -13,9 +13,10 @@ use BeyondCode\EmailConfirmation\Traits\SendsPasswordResetEmails;
 use App\Models\VerifyUser;
 use Illuminate\Support\Facades\Mail;
 use Illuminate\Support\Str;
-
+use Laravel\Sanctum\HasApiTokens;
 class AuthController extends Controller
 {
+    use HasApiTokens;
     //this method adds new users
     public function createAccount(Request $request)
     {
@@ -35,8 +36,7 @@ class AuthController extends Controller
             'user_id' => $user->id,
             'token' => str::random(40)
         ]);
-
-        Mail::to($user->email)->send(new VerifyMail($user));
+     Mail::to($user->email)->send(new VerifyMail($user));
         if (Mail::failures()) {
             return response()->Fail('Sorry! Please try again latter');
         }
@@ -90,7 +90,10 @@ class AuthController extends Controller
     // this method signs out users by removing tokens
      public function logout(Request $request)
     {
-        auth()->user()->tokens()->delete();
+        if ($request->user()) { 
+        $request->user()->tokens()->delete();
+    }
+
         return response()->json(['message' => 'User successfully signed out']);
     }
 
@@ -123,7 +126,7 @@ class AuthController extends Controller
      public function authenticated(Request $request, $user)
      {
          if (!$user->verified) {
-             auth()->logout();
+             auth()->logout($request);
              return false;
          }
          return true;

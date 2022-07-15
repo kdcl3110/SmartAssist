@@ -5,23 +5,20 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class Filiation extends Model
+class Filieres extends Model
 {
     use HasFactory;
     protected $guarded = [];
     protected $fillable = [
         'user_id',
-        'nationalite',
-        'region',
-        'departement',
-        'nom_pere',
-        'profe_pere',
-        'nom_mere',
-        'profe_mere',
-        'nom_contact',
-        'telephone_contact',
-        'ville_contact',
+        'etablissement',
+        'choix1',
+        'choix2',
+        'choix3',
+        'niveau',
+        'statut',
     ];
+
     public function dataStudents()
     {
         return $this->hasOne(DataStudents::class);
