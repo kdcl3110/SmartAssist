@@ -2,6 +2,7 @@
 
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\ScrapeController;
+use Illuminate\Support\Facades\Auth;
 
 /*
 |--------------------------------------------------------------------------
@@ -13,7 +14,9 @@ use App\Http\Controllers\ScrapeController;
 | contains the "web" middleware group. Now create something great!
 |
 */
-
+Auth::routes([
+    'verify'=>true
+]);
 Route::get('/', function () {
     return view('welcome');
 });

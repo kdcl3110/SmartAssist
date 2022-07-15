@@ -9,6 +9,7 @@ use Illuminate\Notifications\Notifiable;
 use Laravel\Fortify\TwoFactorAuthenticatable;
 use Laravel\Jetstream\HasProfilePhoto;
 use Laravel\Sanctum\HasApiTokens;
+use App\Models\VerifyUser;
 
 class User extends Authenticatable
 {
@@ -24,8 +25,8 @@ class User extends Authenticatable
      * @var string[]
      */
     protected $fillable = [
-        'name',
         'email',
+        'phone',
         'password',
     ];
 
@@ -55,7 +56,12 @@ class User extends Authenticatable
      *
      * @var array
      */
-    protected $appends = [
+   /*  protected $appends = [
         'profile_photo_url',
-    ];
+    ]; */
+
+    public function verifyUser()
+    {
+        return $this->hasOne(VerifyUser::class);
+    }
 }

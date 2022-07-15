@@ -14,6 +14,7 @@ use Illuminate\Auth\Events\PasswordReset;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Str;
 use Illuminate\Foundation\Auth\EmailVerificationRequest;
+use Illuminate\Support\Facades\Auth;
 
 /*
 |--------------------------------------------------------------------------
@@ -25,10 +26,9 @@ use Illuminate\Foundation\Auth\EmailVerificationRequest;
 | is assigned the "api" middleware group. Enjoy building your API!
 |
 */
-
-// Route::get('/products', [ProductController::class, 'index']);
 Route::post('/register', [AuthController::class, 'createAccount']);
 Route::post('/signin', [AuthController::class, 'signin']);
+Route::get('/user/verify/{token}', [AuthController::class, 'verifyUser']);
 //using middleware
 Route::group(['middleware' => ['auth:sanctum']], function () {
     Route::get('/profile', function(Request $request) {
@@ -84,29 +84,6 @@ Route::post('/reset-password', function (Request $request) {
                 : back()->withErrors(['email' => [__($status)]]);
 })->middleware('guest')->name('password.update');
 
-/**
- * a route that will return a view asking the user to click on the email verification link that was sent by Laravel after registration
- */
-Route::get('/email/verify', function () {
-    return view('auth.verify-email');
-})->middleware('auth')->name('verification.notice');
- 
-Route::get('/email/verify/{id}/{hash}', function (EmailVerificationRequest $request) {
-    $request->fulfill();
- 
-    return redirect('/home');
-})->middleware(['auth', 'signed'])->name('verification.verify');
- 
-Route::post('/email/verification-notification', function (Request $request) {
-    $request->user()->sendEmailVerificationNotification();
- 
-    return back()->with('message', 'Verification link sent!');
-})->middleware(['auth', 'throttle:6,1'])->name('verification.send');
-
-Route::get('/profile', function () {
-    // Only verified users may access this route...
-})->middleware('verified');
-
 Route::get('/printPDF/{id}', [PDFController::class, 'store']);
 Route::post('/etatcivil', [EtatcivilController::class, 'addData']);
 Route::view('/etat', 'etatcivil');
@@ -115,6 +92,7 @@ Route::post('/datastudents', [DataStudentsController::class, 'addData']);
 Route::get('/pdf', function () {
     return view('PDFTemplate');
 });
+
 
 /* Route::get('/', function() {
     $crawler = Goutte::request('GET', 'https://duckduckgo.com/html/?q=Laravel');
@@ -133,12 +111,3 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
     return $request->user();
 });
 Route::post('/scrape', [ScrapeController::class, 'index']);
-/*Route::prefix('/user')->group(function(){
-   Route::post('/reset', [AuthController::class, 'resetPassword']); 
-   Route::post('/forgotPass', [AuthController::class, 'forgotPassword']);
-   Route::post('/newPass', [AuthController::class, 'newPassword']);  
-});
-
- Route::post('/register', [AuthController::class, 'register']);
-Route::post('/logout', [AuthController::class, 'logout']);
-Route::post('/login', [AuthController::class, 'login']); */

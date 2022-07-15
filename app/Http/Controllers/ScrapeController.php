@@ -72,8 +72,9 @@ class ScrapeController extends Controller
       ['id' => 116, 'name' => 'Master Pro - Sécurité Sanitaire des Aliments'],
       ['id' => 117, 'name' => 'Master Pro - Biotechnologie de la Santé Publique'],
     ];
-    // $path = asset('python/test_finish.py');
-    // $process = new Process(['python', $path]);
+    // $path = public_path('python/test_finish.py');
+    $python = 'c:\Users\admin\AppData\Local\Microsoft\WindowsApps\python';
+    // $process = new Process([$python, $path]);
     // $process->run();
 
     // // error handling
@@ -84,9 +85,9 @@ class ScrapeController extends Controller
 
     // $output_data = $process->getOutput();
     // return $output_data;
-    // echo asset('python/test_finish.py');
+    // echo public_path('python/test_finish.py');
 
-    // echo 'frefre';
+    // // echo 'frefre';
 
     $nom = $request->input('lastname');
     $prenom = $request->input('firstname');
@@ -132,14 +133,24 @@ class ScrapeController extends Controller
     $commande = 'python ' . public_path('python/test_finish.py') . ' ' . $param;
     // echo $commande;
 
+    // try {
+    //   $output = null;
+    //   $result = null;
+    //   exec($commande, $output, $result);
+    //   print_r($output);
+    //   // return response(['fiche' => $output]);
+    // } catch (\Throwable $th) {
+    //   throw $th;
+    // }
+
+    $process = new Process([$python, public_path('python\test_finish.py')]);
+
     try {
-      $output = null;
-      $result = null;
-      exec($commande, $output, $result);
-      print_r($output);
-      // return response(['fiche' => $output]);
-    } catch (\Throwable $th) {
-      throw $th;
+      $process->mustRun();
+
+      echo $process->getOutput();
+    } catch (ProcessFailedException $exception) {
+      echo $exception->getMessage();
     }
   }
 

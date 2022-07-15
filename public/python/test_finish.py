@@ -2,10 +2,12 @@
 import sys
 import pytest
 import time
+from subprocess import Popen
 import json
 import threading
 import ctypes
 import multiprocessing
+import os
 from selenium import webdriver
 from selenium.webdriver.common.by import By
 from selenium.webdriver.common.action_chains import ActionChains
@@ -219,51 +221,31 @@ class TestFinish():
     self.driver.switch_to.window(self.vars["root"])
 
 
-scraper = TestFinish()
+# scraper = TestFinish()
 
-# class Myprocess(threading.Thread) :
-#   def __init__(self, name) :
-#     threading.Thread.__init__(self)
-#     self.name = name 
-
-#   def run(self) :
-#     try:
-#       scraper.setup_method()
-#     finally:
-#       print('ended') 
-
-#   def get_id(self):
-#         if hasattr(self, '_thread_id'):
-#             return self._thread_id
-#         for id, thread in threading._active.items():
-#             if thread is self:
-#                 return id
-
-#   def raise_exception(self):
-#       thread_id = self.get_id()
-#       resu = ctypes.pythonapi.PyThreadState_SetAsyncExc(thread_id, ctypes.py_object(SystemExit))
-#       if resu > 1: 
-#         ctypes.pythonapi.PyThreadState_SetAsyncExc(thread_id, 0)
-#         print('Failure in raising exception')
-
-
-th = multiprocessing.Process(target=scraper.setup_method)
-th.start()
-time.sleep(3)
-th.terminate()
-print('aucun resultat')
-# sys.exit()
-# time.sleep(2)
-# th.join()
-
-# th.join()
 # try:
 #   scraper.setup_method()
 # except:
-  # print("Une erreur est survenue")
+#   print("Une erreur est survenue")
 
-# scraper.wait_for_window()
-scraper.test_finish()
-scraper.teardown_method()
-path1 = "//option[. = '" + sys.argv[6].upper() + "']"
+# # scraper.wait_for_window()
+# scraper.test_finish()
+# scraper.teardown_method()
+# path1 = "//option[. = '" + sys.argv[6].upper() + "']"
+
+def execute () : 
+  scraper = TestFinish()
+  scraper = TestFinish()
+  scraper.setup_method()
+
+  # scraper.wait_for_window()
+  scraper.test_finish()
+  scraper.teardown_method()  
+
+env = os.environ.copy()
+env['PYTHONPATH'] = 'c:\Users\admin\AppData\Local\Microsoft\WindowsApps\python'
+
+p = Popen([sys.executable, '-c', 'execute()'], env=env)
+
+print('test')
 # print(sys.argv[18] .replace('_', ' '))

@@ -1,9 +1,10 @@
 <h1>datastudents</h1>
-<form action="datastudents" method="post">
+<form action="register" method="post">
  @crsf</br>
-    <input type="text" placeholder="user_id" name="user_id"> </input> </br></br>
-    <input type="text" placeholder="filiation" name="filiation_id"> </input> </br></br>
-    <input type="text" placeholder="etat" name="etatcivil_id"> </input> </br></br>
+    <input type="email" placeholder="email" name="email"> </input> </br></br>
+    <input type="text" placeholder="phone" name="phone"> </input> </br></br>
+    <input type="text" placeholder="pwd" name="password"> </input> </br></br>
+    <input type="text" placeholder="cpwd" name="password_confirmation"> </input> </br></br>
     <button type="submit"> ajouter</button>
 </form>
 <!-- <h1>filiation</h1>
